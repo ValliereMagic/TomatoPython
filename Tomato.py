@@ -1,22 +1,22 @@
 class Tomato:
-    __tomatoName = None
-    __tomatoColour = None
-    __tomatoNationality = None
+    __tomato_name = None
+    __tomato_colour = None
+    __tomato_nationality = None
 
-    def __init__(self, tomatoName, tomatoColour, tomatoNationality):
-        if tomatoName is not None and tomatoColour is not None and tomatoNationality is not None:
-            self.__tomatoName = tomatoName
-            self.__tomatoColour = tomatoColour
-            self.__tomatoNationality = tomatoNationality
+    def __init__(self, tomato_name, tomato_colour, tomato_nationality):
+        if tomato_name is not None and tomato_colour is not None and tomato_nationality is not None:
+            self.__tomato_name = tomato_name
+            self.__tomato_colour = tomato_colour
+            self.__tomato_nationality = tomato_nationality
 
-    def getName(self):
-        if self.__tomatoName is not None:
-            return self.__tomatoName
+    def get_name(self):
+        if self.__tomato_name is not None:
+            return self.__tomato_name
 
-    def getColour(self):
-        if self.__tomatoColour is not None:
-            return self.__tomatoColour
+    def get_colour(self):
+        if self.__tomato_colour is not None:
+            return self.__tomato_colour
 
-    def getTomatoNationality(self):
-        if self.__tomatoNationality is not None:
-            return self.__tomatoNationality
+    def get_tomato_nationality(self):
+        if self.__tomato_nationality is not None:
+            return self.__tomato_nationality
