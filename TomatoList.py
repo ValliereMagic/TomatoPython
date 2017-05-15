@@ -41,8 +41,8 @@ class TomatoList(list):
         tomato = self.get_tomato(tomato_name)
 
         if tomato is not None:
-            print("Tomato Colour: " + tomato.getColour() + "\n" +
-                  "Tomato Nationality: " + tomato.getTomatoNationality())
+            print("Tomato Colour: " + tomato.get_colour() + "\n" +
+                  "Tomato Nationality: " + tomato.get_tomato_nationality())
 
     def get_tomato(self, tomato_name):
 
