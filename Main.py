@@ -1,12 +1,13 @@
-import TomatoList
-import sqlite3
 import pickle
+import sqlite3
+
+import Fruit
 
 
 class Main:
 
     def __init__(self):
-        self.tomato_list = TomatoList.TomatoList()
+        self.fruit_list = Fruit.FruitList()
         self.sqlite_db = None
 
         self.run()
@@ -14,10 +15,10 @@ class Main:
     @staticmethod
     def print_instructions():
         print("Enter the number of an option to complete a task: \n",
-              "1.) Add a new tomato to the system \n",
-              "2.) Remove a tomato from the system \n",
-              "3.) Print all the tomatoes that exist in the system \n",
-              "4.) Print the description of a specific tomato \n",
+              "1.) Add a new fruit to the system \n",
+              "2.) Remove a fruit from the system \n",
+              "3.) Print all the fruits that exist in the system \n",
+              "4.) Print the description of a specific fruit \n",
               "5.) Print the Instructions again \n",
               "6.) Close the program")
 
@@ -60,27 +61,27 @@ class Main:
             cursor = db.execute("SELECT data FROM tomatoes ORDER BY id")
             data = cursor.fetchone()
 
-            self.tomato_list = self.deserialize_object(data[0])
+            self.fruit_list = self.deserialize_object(data[0])
 
-            print("Loaded TomatoList from database.")
+            print("Loaded FruitList from database.")
 
         except (TypeError, sqlite3.OperationalError):
             self.init_db()
 
     def dump_to_db(self):
         db = self.get_db()
-        data = self.serialize_object(self.tomato_list)
+        data = self.serialize_object(self.fruit_list)
 
         db.execute("INSERT OR REPLACE INTO tomatoes (id, data) VALUES (?, ?)", [0, data])
         db.commit()
 
-        print("TomatoList saved to database.")
+        print("FruitList saved to database.")
 
     def run(self):
         self.load_from_db()
 
         self.print_instructions()
-        name_prompt = "Name of the tomato: \n"
+        name_prompt = "Name of the fruit: \n"
 
         while True:
             try:
@@ -90,25 +91,18 @@ class Main:
                 print("Invalid input")
 
             if option == 1:
-                tomato = self.tomato_list.make_new_tomato()
-
-                if tomato is not None:
-                    self.tomato_list.append(tomato)
-                    print("Created new tomato: " + tomato.get_name() + " successfully.")
-                    self.dump_to_db()
-
-                else:
-                    print("Failed to create new tomato.")
+                self.fruit_list.create_fruit()
+                self.dump_to_db()
 
             elif option == 2:
-                self.tomato_list.delete_tomato(str(input(name_prompt)))
+                self.fruit_list.remove_fruit(input(name_prompt))
                 self.dump_to_db()
 
             elif option == 3:
-                self.tomato_list.list_all_tomatoes()
+                print(self.fruit_list)
 
             elif option == 4:
-                self.tomato_list.describe_tomato(str(input(name_prompt)))
+                self.fruit_list.describe_fruit(input(name_prompt))
 
             elif option == 5:
                 self.print_instructions()
