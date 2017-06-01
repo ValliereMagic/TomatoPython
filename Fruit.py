@@ -1,5 +1,3 @@
-import sys
-
 class Fruit(object):
     __name = None
     __nationality = None
@@ -54,7 +52,8 @@ class FruitList(list):
 
     def create_fruit(self):
         try:
-            variety = getattr(sys.modules[__name__], input("Enter the type of fruit: ").capitalize())
+            import Varieties
+            variety = getattr(Varieties, input("Enter the type of fruit: ").capitalize())
             self.append(variety(*variety.input_attributes()))
             print("Added new " + variety.__name__ + " successfully.")
         except AttributeError:
@@ -82,13 +81,3 @@ class FruitList(list):
             if fruit.get_name() == name:
                 return fruit
         return None
-
-
-class Apple(Colourable):
-    def __init__(self, name, colour, nationality):
-        super(Apple, self).__init__(name, colour, nationality)
-
-
-class Tomato(Colourable):
-    def __init__(self, tomato_name, tomato_colour, tomato_nationality):
-        super(Tomato, self).__init__(tomato_name, tomato_colour, tomato_nationality)
